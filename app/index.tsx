@@ -51,10 +51,12 @@ Ajustements de l'interface en adaptant manuellement la taille :
 Affichages 5 notes. 6 à illimité en descendant dans la liste.
 Tris "perso", "travail" et "idées"
 {'\n'} 
+{'\n'} 
 "Epinglage" des notes avec l'icône étoile pour accès immmédiat en haut de liste.
 {'\n'} 
+{'\n'} 
 Affichage de la note la plus récente en haut de la liste
-
+{'\n'} 
 {'\n'} 
         Merci de votre compréhension.
       </Text>
