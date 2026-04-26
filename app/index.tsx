@@ -78,7 +78,7 @@ Affichage de la note la plus récente en haut de la liste
             fontWeight: '500'
           }}
         >
-          Accéder à Mininote
+          Accédez à Mininote
         </Text>
       </TouchableOpacity>
     </View>
