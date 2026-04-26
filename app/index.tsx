@@ -37,7 +37,7 @@ export default function Home() {
         organiser et retrouver vos notes rapidement.
 {'\n'}
 {'\n'}
-        26/04/2026. Réglage de l'interface en mode manuel d'ici le 01/05/26. Sous réserve. 
+        26/04/2026. Réglage automatique de l'interface d'ici le 01/05/26. Sous réserve. 
 {'\n'}
 {'\n'}
 
