@@ -34,7 +34,7 @@ export default function NotesScreen() {
 
   const categories = ['perso', 'travail', 'idées'];
 
-  // 🔍 Charger les notes
+  // 📦 Charger les notes
   useEffect(() => {
     const loadNotes = async () => {
       const data = await AsyncStorage.getItem('notes');
@@ -43,7 +43,7 @@ export default function NotesScreen() {
     loadNotes();
   }, []);
 
-  // 💾 Sauvegarder automatiquement
+  // 💾 Sauvegarder les notes
   useEffect(() => {
     AsyncStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
@@ -88,6 +88,12 @@ export default function NotesScreen() {
     );
   };
 
+  const startEdit = (note: Note) => {
+    setInput(note.text);
+    setCategory(note.category || 'perso');
+    setEditingId(note.id);
+  };
+
   const filteredNotes = notes
     .filter(n => n.text.toLowerCase().includes(search.toLowerCase()))
     .filter(n => !showStarredOnly || n.starred)
@@ -115,14 +121,13 @@ export default function NotesScreen() {
           ...blockStyle,
           flexDirection: 'row',
           justifyContent: 'space-between',
-          marginBottom: 15,
-          alignItems: 'center'
+          alignItems: 'center',
+          marginBottom: 15
         }}>
-          <Text style={{ color: '#000', fontSize: 24 }}>
+          <Text style={{ fontSize: 24, color: '#000' }}>
             Notes
           </Text>
 
-          {/* bouton retour accueil (optionnel) */}
           <TouchableOpacity onPress={() => router.replace('/')}>
             <Text style={{ color: 'red' }}>Accueil</Text>
           </TouchableOpacity>
@@ -137,14 +142,14 @@ export default function NotesScreen() {
           placeholder="Écris une note..."
           style={{
             ...blockStyle,
-            backgroundColor: 'white',
+            backgroundColor: '#fff',
             padding: 12,
             borderRadius: 8,
             marginBottom: 10
           }}
         />
 
-        {/* CATEGORIES */}
+        {/* CATÉGORIES */}
         <View style={{ ...blockStyle, marginBottom: 10 }}>
           <View style={{ flexDirection: 'row' }}>
             {categories.map(cat => (
@@ -164,34 +169,34 @@ export default function NotesScreen() {
           </View>
         </View>
 
-        {/* ADD BUTTON */}
+        {/* BOUTON AJOUT */}
         <View style={blockStyle}>
           <Button
-            title={editingId ? "Modifier" : "Ajouter"}
+            title={editingId ? 'Modifier' : 'Ajouter'}
             onPress={saveNote}
           />
         </View>
 
         <View style={{ height: 10 }} />
 
-        {/* SEARCH */}
+        {/* RECHERCHE */}
         <TextInput
           value={search}
           onChangeText={setSearch}
           placeholder="🔎 Rechercher..."
           style={{
             ...blockStyle,
-            backgroundColor: 'white',
+            backgroundColor: '#fff',
             padding: 12,
             borderRadius: 8,
             marginBottom: 10
           }}
         />
 
-        {/* FILTER */}
+        {/* FILTRE */}
         <View style={blockStyle}>
           <Button
-            title={showStarredOnly ? "Tout" : "⭐ Favoris"}
+            title={showStarredOnly ? 'Tout' : '⭐ Favoris'}
             onPress={() => setShowStarredOnly(!showStarredOnly)}
           />
         </View>
@@ -204,6 +209,11 @@ export default function NotesScreen() {
         ref={listRef}
         data={filteredNotes}
         keyExtractor={(item) => item.id}
+        ListEmptyComponent={
+          <Text style={{ textAlign: 'center', marginTop: 20 }}>
+            Aucune note
+          </Text>
+        }
         renderItem={({ item }) => (
           <View style={{
             ...blockStyle,
@@ -230,18 +240,16 @@ export default function NotesScreen() {
               justifyContent: 'space-between',
               marginTop: 8
             }}>
-              <TouchableOpacity>
-                <Text style={{ color: '#000' }}>✏️</Text>
+              <TouchableOpacity onPress={() => startEdit(item)}>
+                <Text>✏️</Text>
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => toggleStar(item.id)}>
-                <Text style={{ color: '#000' }}>
-                  {item.starred ? '⭐' : '☆'}
-                </Text>
+                <Text>{item.starred ? '⭐' : '☆'}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => deleteNote(item.id)}>
-                <Text style={{ color: '#000' }}>🗑</Text>
+                <Text>🗑</Text>
               </TouchableOpacity>
             </View>
           </View>
