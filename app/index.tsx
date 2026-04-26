@@ -29,12 +29,25 @@ export default function Home() {
         style={{
           fontSize: 16,
           textAlign: 'center',
-          marginBottom: 40,
+          marginBottom: 80,
           color: '#333'
         }}
       >
         Une application simple pour écrire,
         organiser et retrouver vos notes rapidement.
+{'\n'}
+{'\n'}
+        26/04/2026. Réglage de l'interface en mode manuel d'ici le 01/05/26. Sous réserve. 
+{'\n'}
+{'\n'}
+
+Ajustements de l'interface en adaptant manuellement la taille : 
+{'\n'} 
+{'\n'} - des fenêtres 
+{'\n'} - des caractères
+{'\n'} - du zoom de l'affichage 
+
+        Merci de votre compréhension.
       </Text>
 
       <TouchableOpacity

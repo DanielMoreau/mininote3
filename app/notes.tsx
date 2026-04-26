@@ -114,7 +114,7 @@ export default function NotesScreen() {
       style={{ flex: 1 }}
       resizeMode="cover"
     >
-      <View style={{ paddingBottom: 10 }}>
+      <View style={{ paddingBottom: 50 }}>
 
         {/* HEADER */}
         <View style={{
@@ -122,7 +122,7 @@ export default function NotesScreen() {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: 15
+          marginBottom: 355
         }}>
           <Text style={{ fontSize: 24, color: '#000' }}>
             Notes
