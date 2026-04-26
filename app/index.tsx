@@ -29,7 +29,7 @@ export default function Home() {
         style={{
           fontSize: 16,
           textAlign: 'center',
-          marginBottom: 80,
+          marginBottom: 40,
           color: '#333'
         }}
       >
@@ -46,7 +46,16 @@ Ajustements de l'interface en adaptant manuellement la taille :
 {'\n'} - des fenêtres 
 {'\n'} - des caractères
 {'\n'} - du zoom de l'affichage 
+{'\n'} 
+{'\n'} 
+Affichages 5 notes. 6 à illimité en descendant dans la liste.
+Tris "perso", "travail" et "idées"
+{'\n'} 
+"Epinglage" des notes avec l'icône étoile pour accès immmédiat en haut de liste.
+{'\n'} 
+Affichage de la note la plus récente en haut de la liste
 
+{'\n'} 
         Merci de votre compréhension.
       </Text>
 
