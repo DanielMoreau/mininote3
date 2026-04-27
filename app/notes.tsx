@@ -11,6 +11,8 @@ import {
   View
 } from 'react-native';
 
+import { useSpacing } from "@/store/useSpacing";
+
 type Note = {
   id: string;
   text: string;
@@ -21,6 +23,8 @@ type Note = {
 
 export default function NotesScreen() {
   const router = useRouter();
+
+  const { space, spaceSmall, text, radius } = useSpacing();
 
   const [notes, setNotes] = useState<Note[]>([]);
   const [input, setInput] = useState('');
@@ -34,7 +38,6 @@ export default function NotesScreen() {
 
   const categories = ['perso', 'travail', 'idées'];
 
-  // 📦 Charger les notes
   useEffect(() => {
     const loadNotes = async () => {
       const data = await AsyncStorage.getItem('notes');
@@ -43,7 +46,6 @@ export default function NotesScreen() {
     loadNotes();
   }, []);
 
-  // 💾 Sauvegarder les notes
   useEffect(() => {
     AsyncStorage.setItem('notes', JSON.stringify(notes));
   }, [notes]);
@@ -114,7 +116,7 @@ export default function NotesScreen() {
       style={{ flex: 1 }}
       resizeMode="cover"
     >
-      <View style={{ paddingBottom: 50 }}>
+      <View style={{ paddingBottom: space * 3 }}>
 
         {/* HEADER */}
         <View style={{
@@ -122,7 +124,7 @@ export default function NotesScreen() {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: 355
+          marginBottom: space * 2
         }}>
           <Text style={{ fontSize: 24, color: '#000' }}>
             Notes
@@ -133,8 +135,6 @@ export default function NotesScreen() {
           </TouchableOpacity>
         </View>
 
-        <View style={{ height: 60 }} />
-
         {/* INPUT */}
         <TextInput
           value={input}
@@ -143,23 +143,23 @@ export default function NotesScreen() {
           style={{
             ...blockStyle,
             backgroundColor: '#fff',
-            padding: 12,
-            borderRadius: 8,
-            marginBottom: 10
+            padding: space,
+            borderRadius: radius,
+            marginBottom: spaceSmall
           }}
         />
 
         {/* CATÉGORIES */}
-        <View style={{ ...blockStyle, marginBottom: 10 }}>
+        <View style={{ ...blockStyle, marginBottom: spaceSmall }}>
           <View style={{ flexDirection: 'row' }}>
             {categories.map(cat => (
               <TouchableOpacity
                 key={cat}
                 onPress={() => setCategory(cat)}
                 style={{
-                  marginRight: 10,
-                  padding: 6,
-                  borderRadius: 6,
+                  marginRight: spaceSmall,
+                  padding: spaceSmall,
+                  borderRadius: radius,
                   backgroundColor: category === cat ? '#ddd' : '#aaa'
                 }}
               >
@@ -169,7 +169,7 @@ export default function NotesScreen() {
           </View>
         </View>
 
-        {/* BOUTON AJOUT */}
+        {/* BOUTON */}
         <View style={blockStyle}>
           <Button
             title={editingId ? 'Modifier' : 'Ajouter'}
@@ -177,7 +177,7 @@ export default function NotesScreen() {
           />
         </View>
 
-        <View style={{ height: 10 }} />
+        <View style={{ height: spaceSmall }} />
 
         {/* RECHERCHE */}
         <TextInput
@@ -187,9 +187,9 @@ export default function NotesScreen() {
           style={{
             ...blockStyle,
             backgroundColor: '#fff',
-            padding: 12,
-            borderRadius: 8,
-            marginBottom: 10
+            padding: space,
+            borderRadius: radius,
+            marginBottom: spaceSmall
           }}
         />
 
@@ -201,7 +201,7 @@ export default function NotesScreen() {
           />
         </View>
 
-        <View style={{ height: 20 }} />
+        <View style={{ height: space }} />
       </View>
 
       {/* LISTE */}
@@ -210,35 +210,35 @@ export default function NotesScreen() {
         data={filteredNotes}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={
-          <Text style={{ textAlign: 'center', marginTop: 20 }}>
+          <Text style={{ textAlign: 'center', marginTop: space }}>
             Aucune note
           </Text>
         }
         renderItem={({ item }) => (
           <View style={{
             ...blockStyle,
-            padding: 16,
-            borderRadius: 12,
-            marginBottom: 20,
+            padding: space,
+            borderRadius: radius,
+            marginBottom: space,
             backgroundColor: 'rgba(255,255,255,0.4)',
             borderWidth: 2,
             borderColor: '#000'
           }}>
-            <Text style={{ color: '#000', marginBottom: 8 }}>
+            <Text style={{ color: '#000', marginBottom: spaceSmall }}>
               {item.starred ? '⭐ ' : ''}
               {item.text}
             </Text>
 
             <Text style={{ color: '#222' }}>{item.category}</Text>
 
-            <Text style={{ color: '#444', fontSize: 12 }}>
+            <Text style={{ color: '#444', fontSize: text - 2 }}>
               {new Date(item.createdAt || 0).toLocaleString()}
             </Text>
 
             <View style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              marginTop: 8
+              marginTop: spaceSmall
             }}>
               <TouchableOpacity onPress={() => startEdit(item)}>
                 <Text>✏️</Text>
